@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+
+# Build outputs
+frontend/dist/
+backend/outputs/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+temp_*
+
+# Logs
+*.log
+logs/
+
+# Database
+*.db
+*.sqlite
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+.Python
+*.so
+
+# Images extracted during template analysis
+backend/master_*.png
+backend/layout_*.png
+backend/slide_*.png
