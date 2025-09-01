@@ -251,6 +251,14 @@ Generate the editing instructions to fulfill this request.
 """
 
         try:
+            # Validate input parameters
+            print(f"🔍 Debug - edit_prompt type: {type(edit_prompt)}")
+            print(f"🔍 Debug - current_slide_data type: {type(current_slide_data)}")
+            print(f"🔍 Debug - slide_number type: {type(slide_number)}")
+            
+            if not isinstance(current_slide_data, dict):
+                raise ValueError(f"current_slide_data must be a dictionary, got {type(current_slide_data)}")
+            
             # Use OpenAI 0.8.0 with LiteLLM proxy for editing
             def _sync_openai_call():
                 full_system_prompt = system_prompt.format(

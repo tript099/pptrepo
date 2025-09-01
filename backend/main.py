@@ -441,11 +441,18 @@ async def preview_edit_with_prompt(
         original_slides = ppt_service.extract_slide_content(temp_path)
         
         # Generate edit instructions using AI
+        print(f"🔍 Debug - About to call generate_slide_edits with:")
+        print(f"  edit_prompt: {edit_prompt}")
+        print(f"  original_slides type: {type(original_slides)}")
+        print(f"  slide_number: {slide_number}")
+        
         edit_instructions = await ai_service.generate_slide_edits(
             edit_prompt, 
-            slide_number, 
-            original_slides
+            original_slides,
+            slide_number
         )
+        
+        print(f"✅ Edit instructions generated: {edit_instructions}")
         
         # Apply edits and get preview data
         preview_data = ppt_service.preview_edits(
@@ -463,10 +470,16 @@ async def preview_edit_with_prompt(
         }
         
     except Exception as e:
-        print(f"Error in preview_edit_with_prompt: {e}")
+        print(f"❌ Error in preview_edit_with_prompt: {e}")
+        print(f"❌ Error type: {type(e)}")
         import traceback
         traceback.print_exc()
-        raise HTTPException(status_code=500, detail=str(e))
+        
+        # Clean up temp file
+        if 'temp_path' in locals() and os.path.exists(temp_path):
+            os.unlink(temp_path)
+            
+        raise HTTPException(status_code=500, detail=f"Error generating edit instructions: {str(e)}")
     finally:
         # Clean up temp file
         if 'temp_path' in locals():
