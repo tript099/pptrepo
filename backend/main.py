@@ -19,19 +19,27 @@ from services.pdf_service import PDFService
 
 app = FastAPI(title="AI-Powered PPT Automation System", version="1.0.0")
 
+# Define allowed origins for CORS
+ALLOWED_ORIGINS = [
+    "http://localhost:3000", 
+    "http://localhost:5173", 
+    "http://localhost:3002",
+    "https://pptrepo.vercel.app",
+    "https://pptrepo-git-main-tript099s-projects.vercel.app",  # Git branch deployments
+    "https://pptrepo-tript099s-projects.vercel.app",  # Project deployments
+]
+
+# Add frontend URL from environment if specified
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+if FRONTEND_URL and FRONTEND_URL not in ALLOWED_ORIGINS:
+    ALLOWED_ORIGINS.append(FRONTEND_URL)
+
 # CORS middleware for React frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000", 
-        "http://localhost:5173", 
-        "http://localhost:3002",
-        "https://*.vercel.app",
-        "https://*.netlify.app",
-        "https://*.railway.app"
-    ],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 

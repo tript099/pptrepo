@@ -23,5 +23,8 @@
         }
       ]
     }
-  ]
+  ],
+  "env": {
+    "VITE_API_BASE_URL": "https://pptrepo.onrender.com"
+  }
 }

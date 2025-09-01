@@ -6,7 +6,8 @@ import SlideVisualPreview from './SlideVisualPreview'
 import './PromptForm.css'
 
 // Configure API base URL from environment
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
+  (import.meta.env.PROD ? 'https://pptrepo.onrender.com' : 'http://localhost:8000')
 
 const PromptForm = () => {
   const [prompt, setPrompt] = useState('')
